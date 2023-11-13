@@ -1,9 +1,9 @@
-import { FileReader } from "./file"
+import { TempFile } from "./file"
 import config from "./config"
 
 const fileReader = async (path: string) => {
-  const fileReader = new FileReader(path)
-  return fileReader.read<number>({ numeric: true })
+  const file = new TempFile(path)
+  return file.read<number>({ numeric: true })
 }
 
 const test = async () => {
@@ -15,7 +15,7 @@ const test = async () => {
   }
 
   if (config.outFile) {
-    await FileReader.create(config.outFilePath, result.toString())
+    await TempFile.create(config.outFilePath, result.toString())
     console.log("Wrote to outfile, exiting.")
   }
 }

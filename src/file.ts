@@ -5,7 +5,7 @@ interface ParserSettings {
   numeric?: boolean
 }
 
-export class FileReader {
+export class TempFile {
   private readonly path: string
 
   public constructor(path: string) {
@@ -40,9 +40,9 @@ export class FileReader {
     try {
       await fs.appendFile(path, `[${new Date().toLocaleString()}]: ${content}\r\n` ?? "")
 
-      const fileReader = new FileReader(path)
+      const file = new TempFile(path)
 
-      return await fileReader.read()
+      return await file.read()
     } catch (error) {
       console.log(error)
     }
